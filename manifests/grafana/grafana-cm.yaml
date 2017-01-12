@@ -2417,7 +2417,7 @@ data:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "node_memory_MemTotal{instance=~\"$server\"}",
+                  "expr": "node_memory_MemFree{instance=~\"$server\"}",
                   "intervalFactor": 2,
                   "legendFormat": "free memory",
                   "metric": "memo",
@@ -2446,7 +2446,7 @@ data:
                   "label": null,
                   "logBase": 1,
                   "max": null,
-                  "min": null,
+                  "min": 2,
                   "show": true
                 },
                 {
@@ -2719,7 +2719,7 @@ data:
               },
               "targets": [
                 {
-                  "expr": "sum(node_filesystem_free{device!=\"rootfs\",instance=~\"$server\"}) / sum(node_filesystem_size{device!=\"rootfs\",instance=~\"$server\"})",
+                  "expr": "sum(node_filesystem_free{device="/dev/xvdf",fstype="btrfs",instance=~"$server",job="node-exporter",mountpoint="/"}) / sum(node_filesystem_size{device="/dev/xvdf",fstype="btrfs",instance=~"$server",job="node-exporter",mountpoint="/"})",
                   "intervalFactor": 2,
                   "refId": "A",
                   "step": 60,
@@ -2727,7 +2727,7 @@ data:
                 }
               ],
               "thresholds": "0.10, 0.25",
-              "title": "Free disk space",
+              "title": "Free disk space /var/lib/docker",
               "type": "singlestat",
               "valueFontSize": "80%",
               "valueMaps": [

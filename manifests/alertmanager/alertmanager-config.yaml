@@ -6,13 +6,18 @@ data:
   alertmanager.yaml: |-
     global:
       resolve_timeout: 5m
+
     route:
+      receiver: 'slack'
       group_by: ['job']
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: 'webhook'
+
     receivers:
-    - name: 'webhook'
-      webhook_configs:
-      - url: 'http://alertmanagerwh:30500/'
+      - name: 'slack'
+        slack_configs:
+          - send_resolved: true
+            #username: ''
+            channel: '#<CHANNEL>'
+            api_url: 'https://hooks.slack.com/services/<YOUR TOKEN HERE>'
